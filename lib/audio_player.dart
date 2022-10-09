@@ -6,6 +6,7 @@ import 'package:audioplayers/audioplayers.dart' as ap;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:just_waveform/just_waveform.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -155,6 +156,18 @@ class AudioPlayerState extends State<AudioPlayer> {
                 waveColor: Theme.of(context).primaryColor,
               ),
             ),
+            RectangleWaveform(
+              samples: widget.waveform.data.map((i) => i.toDouble()).toList(),
+              inactiveColor: Theme.of(context).primaryColor,
+              inactiveBorderColor: Theme.of(context).primaryColor,
+              height: 50,
+              width: 300,
+              showActiveWaveform: true,
+              maxDuration: widget.duration,
+              elapsedDuration: Duration.zero,
+              isCentered: true,
+              isRoundedRectangle: true,
+            ),
             const Text("Extracted - Waveform"),
             if (extractedWaveform != null) ...[
               SizedBox(
@@ -168,6 +181,19 @@ class AudioPlayerState extends State<AudioPlayer> {
                   pixelsPerStep: 8,
                   waveColor: Theme.of(context).primaryColor,
                 ),
+              ),
+              RectangleWaveform(
+                samples:
+                    extractedWaveform!.data.map((i) => i.toDouble()).toList(),
+                inactiveColor: Theme.of(context).primaryColor,
+                inactiveBorderColor: Theme.of(context).primaryColor,
+                height: 50,
+                width: 300,
+                isRoundedRectangle: true,
+                invert: true,
+                maxDuration: widget.duration,
+                elapsedDuration: Duration.zero,
+                isCentered: true,
               ),
             ]
           ],
